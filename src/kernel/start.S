@@ -3,7 +3,7 @@
 
 .section .text
 .global _start
-.global kernel_main
+.global main
 _start:
 	/* BL33 information */
 	j program_start
@@ -29,7 +29,7 @@ bss_zero_loop:
     addi a0, a0, 4
     blt a0, a1, bss_zero_loop
 
-	jal ra, kernel_main
+	jal ra, main
 
 	la s0, str
 1:
