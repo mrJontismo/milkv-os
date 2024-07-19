@@ -10,9 +10,9 @@ void uart_sendc(char c)
     UART0_THR = c;
 }
 
-void uart_send_message(const char *str)
+void uart_send(const char *str)
 {
-    while(*str)
+    while (*str)
     {
         uart_sendc(*str++);
     }
@@ -21,7 +21,6 @@ void uart_send_message(const char *str)
 int main(void)
 {
     const char *str = "Hello from C!\n";
-    uart_send_message(str);
-    uart_sendc('E');
+    uart_send(str);
     return 0;
 }

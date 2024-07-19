@@ -1,32 +1,41 @@
+OUTPUT_ARCH(riscv)
+ENTRY(_start)
+
 MEMORY
 {
     ROM (rx)  : ORIGIN = 0x04400000, LENGTH = 128K
-    RAM (rwx) : ORIGIN = 0x30000000, LENGTH = 256M
+    DDR (rwx) : ORIGIN = 0x80000000, LENGTH = 2048M
 }
-
-ENTRY(_start)
 
 SECTIONS
 {
+    . = 0x802000; /* Set the starting address */
+
     .text : {
         *(.text)
-        *(.rodata)
-        . = ALIGN(4);
-    } > ROM
+    } > DDR
 
+    .rodata : {
+        *(.rodata)
+    } > DDR
+
+    __data_start = .;
     .data : {
         *(.data)
-        . = ALIGN(4);
-    } > RAM AT > ROM
+    } > DDR
+    __data_end = .;
 
+    __bss_start = .;
     .bss : {
-        __bss_start__ = .;
         *(.bss)
         *(COMMON)
-        . = ALIGN(4);
-        __bss_end__ = .;
-    } > RAM
+    } > DDR
+    __bss_end = .;
 
-    ram_end = ORIGIN(RAM) + LENGTH(RAM);
-    _end = .;
+    /DISCARD/ : {
+        *(.note.GNU-stack)
+    }
+
+    /* Define the stack top at the end of DDR memory */
+    __stack_top = ORIGIN(DDR) + LENGTH(DDR);
 }
