@@ -9,7 +9,7 @@ MEMORY
 
 SECTIONS
 {
-    . = 0x802000; /* Set the starting address */
+    . = 0x80200000;
 
     .text : {
         *(.text)
@@ -36,6 +36,6 @@ SECTIONS
         *(.note.GNU-stack)
     }
 
-    /* Define the stack top at the end of DDR memory */
-    __stack_top = ORIGIN(DDR) + LENGTH(DDR);
+    /* Offset because of the starting address */
+    __stack_top = ORIGIN(DDR) + LENGTH(DDR) - 0x00200000;
 }
