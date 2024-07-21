@@ -2,6 +2,13 @@
 
 void main(void)
 {
-    const char *str = "Hello from C!\n";
-    uart_send(str);
+    uart_puts("Booting...\n");
+    uart_puts("Enter your name: ");
+    
+    char buf[64];
+    uart_gets(buf, 64);
+
+    uart_puts("Welcome to Milkv-OS, ");
+    uart_puts(buf);
+    uart_puts("!\n");
 }
