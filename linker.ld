@@ -19,11 +19,9 @@ SECTIONS
         *(.rodata)
     } > DDR
 
-    __data_start = .;
     .data : {
         *(.data)
     } > DDR
-    __data_end = .;
 
     __bss_start = .;
     .bss : {
@@ -31,6 +29,8 @@ SECTIONS
         *(COMMON)
     } > DDR
     __bss_end = .;
+
+    __kernel_end = .;
 
     /DISCARD/ : {
         *(.note.GNU-stack)

@@ -11,5 +11,7 @@ void uart_putc(char c);
 void uart_puts(const char *str);
 char uart_getc(void);
 void uart_gets(char *buf, uint8_t len);
+void uint64_to_str(char *str, uint64_t val, uint8_t base);
+void uart_put_uint64(uint64_t num, uint8_t base);
 
 #endif
