@@ -1,6 +1,6 @@
 .section .text
 .global _start
-.global main
+.global kernel_main
 
 _start:
     j program_start
@@ -28,7 +28,7 @@ zero_bss:
     j zero_bss
 
 bss_done:
-    jal ra, main
+    jal ra, kernel_main
 
 exit:
     j exit
