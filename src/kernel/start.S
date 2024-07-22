@@ -4,7 +4,6 @@
 
 _start:
     j program_start
-
     .balign 4
     .word 0x33334c42  /* b'BL33' */
     .word 0xdeadbeea  /* CKSUM */

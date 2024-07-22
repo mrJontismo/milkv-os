@@ -4,6 +4,6 @@
 void main(void)
 {
     uart_puts("MilkV-OS booting...\n");
-    physical_memory_init();
+    kernel_phys_mem_init();
     uart_puts("MilkV-OS shutting down.\n");
 }
