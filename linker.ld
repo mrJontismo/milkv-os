@@ -37,5 +37,5 @@ SECTIONS
     }
 
     /* Offset because of the starting address */
-    __stack_top = ORIGIN(DDR) + LENGTH(DDR) - 0x00200000;
+    __stack_top = ORIGIN(DDR) + LENGTH(DDR) - 0x00200000 - 1;
 }
