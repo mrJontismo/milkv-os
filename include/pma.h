@@ -4,12 +4,11 @@
 #include "string.h"
 #include <stdint.h>
 
-#define SG2002_DDR_END __stack_top
-#define KERNEL_END __kernel_end
+#define SG2002_DDR_END (uintptr_t)__stack_top
+#define KERNEL_END (uintptr_t)__kernel_end
 #define PAGE_SIZE 4096
 #define PAGE_ROUND_UP(sz) (((sz)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
 #define PAGE_ROUND_DOWN(a) (((a)) & ~(PAGE_SIZE-1))
-#define ADDR_OF(sym) ((uintptr_t)(sym))
 
 typedef struct PageFrame PageFrame;
 struct PageFrame
@@ -24,6 +23,6 @@ typedef struct KernelFreeList
 
 void kernel_phys_mem_init(void);
 void *kernel_phys_alloc(void);
-void kernel_phys_free(PageFrame *page);
+void kernel_phys_free(void *ptr);
 
 #endif

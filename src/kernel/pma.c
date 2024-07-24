@@ -5,19 +5,19 @@
 
 extern char __stack_top[];
 extern char __kernel_end[];
+
 KernelFreeList kernel_free_list = { NULL };
 
 void kernel_phys_mem_init(void)
 {
-
-    uintptr_t begin = PAGE_ROUND_UP(ADDR_OF(KERNEL_END));
-    uintptr_t end = PAGE_ROUND_DOWN(ADDR_OF(SG2002_DDR_END));
+    uintptr_t begin = PAGE_ROUND_UP(KERNEL_END);
+    uintptr_t end = PAGE_ROUND_DOWN(SG2002_DDR_END);
 
     size_t pages = 0;
 
     for (; begin < end; begin += PAGE_SIZE)
     {
-        if (begin % PAGE_SIZE != 0 || begin <= ADDR_OF(KERNEL_END) || begin >= end)
+        if (begin % PAGE_SIZE != 0 || begin <= KERNEL_END || begin >= end)
         {
             uart_puts("Fatal error! Failed to add physical page to free list.\n");
             return;
@@ -49,10 +49,12 @@ void *kernel_phys_alloc(void)
     return (void *)page;
 }
 
-void kernel_phys_free(PageFrame *page)
+void kernel_phys_free(void *ptr)
 {
-    uintptr_t page_address = ADDR_OF(page);
-    if (page_address % PAGE_SIZE != 0 || page_address < ADDR_OF(KERNEL_END) || page_address >= ADDR_OF(SG2002_DDR_END))
+    PageFrame *page = (PageFrame *)ptr;
+    uintptr_t page_address = (uintptr_t)page;
+    
+    if (page_address % PAGE_SIZE != 0 || page_address < KERNEL_END || page_address >= SG2002_DDR_END)
     {
         uart_puts("Fatal error! Failed to add physical page to free list.\n");
         return;
