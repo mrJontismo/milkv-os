@@ -3,17 +3,19 @@
 #include "pma.h"
 #include <stdint.h>
 
-extern char __stack_top[];
-extern char __kernel_end[];
+extern uintptr_t __stack_top;
+extern uintptr_t __kernel_end;
+
+#define SG2002_DDR_END (uintptr_t)&__stack_top
+#define KERNEL_END (uintptr_t)&__kernel_end
 
 KernelFreeList kernel_free_list = { NULL };
+extern size_t pages = 0;
 
 void kernel_phys_mem_init(void)
 {
     uintptr_t begin = PAGE_ROUND_UP(KERNEL_END);
     uintptr_t end = PAGE_ROUND_DOWN(SG2002_DDR_END);
-
-    size_t pages = 0;
 
     for (; begin < end; begin += PAGE_SIZE)
     {
@@ -46,6 +48,7 @@ void *kernel_phys_alloc(void)
         memset((void *)page, 0, PAGE_SIZE);
     }
 
+    --pages;
     return (void *)page;
 }
 
@@ -53,13 +56,14 @@ void kernel_phys_free(void *ptr)
 {
     PageFrame *page = (PageFrame *)ptr;
     uintptr_t page_address = (uintptr_t)page;
-    
+
     if (page_address % PAGE_SIZE != 0 || page_address < KERNEL_END || page_address >= SG2002_DDR_END)
     {
         uart_puts("Fatal error! Failed to add physical page to free list.\n");
         return;
     }
 
+    ++pages;
     page->next = kernel_free_list.free_list;
     kernel_free_list.free_list = page;
 }
