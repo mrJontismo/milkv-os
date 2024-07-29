@@ -1,21 +1,17 @@
 #include "uart.h"
 #include "string.h"
 #include "pma.h"
+#include "memory.h"
 #include <stdint.h>
 
-extern uintptr_t __stack_top;
 extern uintptr_t __kernel_end;
-
-#define SG2002_DDR_END (uintptr_t)&__stack_top
-#define KERNEL_END (uintptr_t)&__kernel_end
-
 KernelFreeList kernel_free_list = { NULL };
-extern size_t pages = 0;
 
 void kernel_phys_mem_init(void)
 {
     uintptr_t begin = PAGE_ROUND_UP(KERNEL_END);
     uintptr_t end = PAGE_ROUND_DOWN(SG2002_DDR_END);
+    size_t pages = 0;
 
     for (; begin < end; begin += PAGE_SIZE)
     {
@@ -48,7 +44,6 @@ void *kernel_phys_alloc(void)
         memset((void *)page, 0, PAGE_SIZE);
     }
 
-    --pages;
     return (void *)page;
 }
 
@@ -63,7 +58,6 @@ void kernel_phys_free(void *ptr)
         return;
     }
 
-    ++pages;
     page->next = kernel_free_list.free_list;
     kernel_free_list.free_list = page;
 }
