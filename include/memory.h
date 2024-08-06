@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
-#define SG2002_DDR_END 0xFFFFFFFF
-#define KERNEL_BEGIN 0x80200000
+#define SG2002_DDR_END (uintptr_t)0xFFFFFFFF
+#define KERNEL_BEGIN (uintptr_t)0x80200000
 #define KERNEL_END (uintptr_t)&__kernel_end
 #define TEXT_END (uintptr_t)&__text_end
 

@@ -5,7 +5,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-extern uintptr_t __kernel_begin;
 extern uintptr_t __text_end;
 
 pagetable_t kernel_pagetable;
@@ -86,7 +85,7 @@ pte_t *get_pagetable_entry(pagetable_t pagetable, uintptr_t va, bool alloc)
 
         if (*pte & PTE_V)
         {
-            pagetable = (pagetable_t) PTE_TO_PA(*pte);
+            pagetable = (pagetable_t)PTE_TO_PA(*pte);
         } else
         {
             if (!alloc || (pagetable = (pte_t*)kernel_phys_alloc()) == 0)

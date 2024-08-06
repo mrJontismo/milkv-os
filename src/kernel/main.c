@@ -4,8 +4,8 @@
 
 void kernel_main(void)
 {
-    uart_puts("MilkV-OS booting...\n");
+    uart_puts("Booting...\n");
     kernel_phys_mem_init();
     kernel_vmm_init();
-    uart_puts("MilkV-OS shutting down.\n");
+    uart_puts("Done.\n");
 }

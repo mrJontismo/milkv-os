@@ -24,12 +24,10 @@ SECTIONS
         *(.data)
     } > DDR
 
-    __bss_start = .;
     .bss : {
         *(.bss)
         *(COMMON)
     } > DDR
-    __bss_end = .;
 
     __kernel_end = .;
 
