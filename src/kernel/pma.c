@@ -12,13 +12,12 @@ void kernel_phys_mem_init(void)
 {
     uintptr_t begin = PAGE_ROUND_UP(KERNEL_END);
     uintptr_t end = PAGE_ROUND_DOWN(SG2002_DDR_END);
-    size_t pages = 0;
 
     for (; begin < end; begin += PAGE_SIZE)
     {
         if (begin % PAGE_SIZE != 0 || begin <= KERNEL_END || begin >= end)
         {
-            uart_puts("Fatal error! Failed to add physical page to free list.\n");
+            uart_puts("Error! Failed to add physical page to free list.\n");
             return;
         }
 
@@ -29,7 +28,7 @@ void kernel_phys_mem_init(void)
         ++pages;
     }
 
-    uart_puts("[OK] PMA initialized with ");
+    uart_puts("[ OK ] PMA initialized with ");
     uart_put_uint64(pages, 10);
     uart_puts(" physical pages.\n");
 }
@@ -56,7 +55,7 @@ void kernel_phys_free(void *ptr)
 
     if (page_address % PAGE_SIZE != 0 || page_address < KERNEL_END || page_address >= SG2002_DDR_END)
     {
-        uart_puts("Fatal error! Failed to add physical page to free list.\n");
+        uart_puts("Error! Failed to add physical page to free list.\n");
         return;
     }
 

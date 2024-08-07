@@ -15,7 +15,7 @@ _start:
     .balign 4
 
 program_start:
-    la sp, __stack_top
+    li sp, 0xFFFFFFFF
     jal ra, kernel_main
 
 exit:

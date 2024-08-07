@@ -3,11 +3,6 @@
 
 #include <stdint.h>
 
-#define SG2002_DDR_END (uintptr_t)0xFFFFFFFF
-#define KERNEL_BEGIN (uintptr_t)0x80200000
-#define KERNEL_END (uintptr_t)&__kernel_end
-#define TEXT_END (uintptr_t)&__text_end
-
 #define PAGE_SIZE 4096
 #define PAGE_ROUND_UP(sz) (((sz)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
 #define PAGE_ROUND_DOWN(a) (((a)) & ~(PAGE_SIZE-1))
@@ -25,5 +20,12 @@
 #define PTE_TO_PA(pte) (((pte) >> 10) << 12)
 #define PAGETABLE_INDEX_SHIFT(level) (PAGE_OFFSET + (9 * (level)))
 #define PAGETABLE_INDEX(level, va) ((((uintptr_t) (va)) >> PAGETABLE_INDEX_SHIFT(level)) & PAGE_INDEX_MASK)
+
+#define SG2002_DDR_END  (uintptr_t)0xFFFFFFFF
+#define KERNEL_BEGIN    (uintptr_t)0x80200000
+#define KERNEL_END      (uintptr_t)&__kernel_end
+#define TEXT_END        (uintptr_t)&__text_end
+
+#define UART0            0x04140000 // size: 64K
 
 #endif

@@ -34,6 +34,4 @@ SECTIONS
     /DISCARD/ : {
         *(.note.GNU-stack)
     }
-
-    __stack_top = ORIGIN(DDR) + LENGTH(DDR) - 0x00200000 - 1;
 }
