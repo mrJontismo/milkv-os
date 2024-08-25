@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define PAGE_ROUND_UP(addr)     (((addr)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
+#define PAGE_ROUND_UP(addr)    (((addr)+PAGE_SIZE-1) & ~(PAGE_SIZE-1))
 #define PAGE_ROUND_DOWN(addr)  (((addr)) & ~(PAGE_SIZE-1))
 
 #define PAGE_SIZE 4096

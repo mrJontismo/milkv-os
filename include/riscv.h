@@ -50,7 +50,7 @@ static inline uint64_t r_read_sp(void)
     return sp;
 }
 
-static inline void sfence_vma()
+static inline void sfence_vma(void)
 {
     asm volatile("sfence.vma zero, zero");
 }

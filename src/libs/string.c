@@ -15,6 +15,6 @@ void *memset(void *ptr, uint8_t value, size_t size)
 size_t strlen(const char *str)
 {
     size_t i;
-    for(i = 0; str[i]; i++);
+    for(i = 0; str[i]; ++i);
     return i;
 }

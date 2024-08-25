@@ -10,7 +10,7 @@ void trap_handler(void)
     uint64_t sepc = csr_read_sepc();
     uint64_t sstatus = csr_read_sstatus();
 
-    if(scause >> 63)
+    if (scause >> 63)
     {
         interrupt_handler(scause);
     }

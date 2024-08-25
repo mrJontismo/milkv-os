@@ -27,7 +27,8 @@ typedef uint64_t *pagetable_t;
 #define MAKE_SATP(pagetable) (uintptr_t)(SATP_SV39 | (((uintptr_t)pagetable) >> 12))
 
 pte_t *kernel_vmm_walk_pagetable(pagetable_t pagetable, uintptr_t virtual_addr, bool alloc);
-bool kernel_vmm_map_pages(pagetable_t pagetable, uintptr_t virtual_addr, uintptr_t physical_addr, size_t length, uint64_t perm);
+void kernel_vmm_map_pages(pagetable_t pagetable, uintptr_t virtual_addr, uintptr_t physical_addr, size_t length, uint64_t perm);
+void kernel_hw_paging_enable(pagetable_t pagetable);
 void kernel_vmm_pagetable_init(void);
 
 #endif
