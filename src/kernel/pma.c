@@ -13,13 +13,13 @@ void kernel_phys_mem_init(void)
     size_t pages = 0;
 
     uintptr_t begin = PAGE_ROUND_UP(KERNEL_END);
-    uintptr_t end = PAGE_ROUND_DOWN(SG2002_DDR_END);
+    uintptr_t end = PAGE_ROUND_DOWN(ADDR_SPACE_END);
 
     for (; begin < end; begin += PAGE_SIZE)
     {
         if (begin % PAGE_SIZE != 0 || begin <= KERNEL_END || begin >= end)
         {
-            uart_puts("Error! Failed to add physical page to free list.\n");
+            uart_puts("Error! Invalid parameters for physical page during initialization.\n");
             return;
         }
 
@@ -51,14 +51,14 @@ void *kernel_phys_alloc(void)
     return (void *)page;
 }
 
-void kernel_phys_free(void *ptr)
+void kernel_phys_free(const void *ptr)
 {
-    pageframe_t *page = (pageframe_t *)ptr;
-    uintptr_t page_address = (uintptr_t)page;
+    pageframe_t *page = (pageframe_t *) ptr;
+    uintptr_t page_address = (uintptr_t) page;
 
-    if (page_address % PAGE_SIZE != 0 || page_address < KERNEL_END || page_address >= SG2002_DDR_END)
+    if (page_address % PAGE_SIZE != 0 || page_address < KERNEL_END || page_address >= ADDR_SPACE_END)
     {
-        uart_puts("Error! Failed to add physical page to free list.\n");
+        uart_puts("Error! Cannot free physical page due to invalid page properties.\n");
         return;
     }
 

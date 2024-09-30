@@ -28,4 +28,5 @@ sudo ./plat/cv180x/fiptool.py -v genfip "$FIP_PATH/fip.bin" \
 cd ..
 
 sudo cp --no-preserve=ownership "$MILKV_SDK_PATH/fsbl/$FIP_PATH/fip.bin" "/media/$USER/boot2/"
+sync
 cp "$MILKV_SDK_PATH/fsbl/$FIP_PATH/fip.bin" "$SCRIPT_DIR/out/"
