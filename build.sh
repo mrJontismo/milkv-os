@@ -7,7 +7,7 @@ MILKV_SDK_PATH="$HOME/Development/tools/duo-buildroot-sdk"
 FIP_PATH="build/cv1812cp_milkv_duo256m_sd"
 SOURCE_FILES=("src/kernel/start.S" "src/kernel/main.c" "src/drivers/uart.c" "src/kernel/pma.c" "src/libs/string.c" "src/kernel/vmm.c" "src/kernel/trap.c" "src/kernel/trap.S" "src/libs/panic.c")
 
-riscv64-unknown-elf-gcc -nostdlib -fno-builtin -march=rv64gc -mstrict-align -mabi=lp64f -g -Wall -Wextra -Ttext=0x80200000 -ffreestanding -mcmodel=medany -I ./include -T kernel.ld -o bl33.elf "${SOURCE_FILES[@]}" -Wl,-Map=out/kernel.map 
+riscv64-unknown-elf-gcc -nostdlib -fno-builtin -march=rv64gc -mstrict-align -mabi=lp64f -g -Wall -Wextra -Wpedantic -Ttext=0x80200000 -ffreestanding -mcmodel=medany -I ./include -T kernel.ld -o bl33.elf "${SOURCE_FILES[@]}" -Wl,-Map=out/kernel.map 
 riscv64-unknown-elf-objcopy -O binary bl33.elf bl33.bin
 
 cp bl33.elf bl33.bin out/

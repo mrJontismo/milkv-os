@@ -29,59 +29,59 @@ void exception_handler(uint64_t scause, uint64_t sepc)
 {
     switch (SCAUSE_EXCEPTION_CODE(scause))
     {
-        case 0x0:
+        case INSTRUCTION_ADDRESS_MISALIGNED:
             uart_puts("Instruction address misaligned.\n");
             sepc += 4;
             break;
-        case 0x1:
+        case INSTRUCTION_ACCESS_FAULT:
             uart_puts("Instruction access fault.\n");
             sepc += 4;
             break;
-        case 0x2:
+        case ILLEGAL_INSTRUCTION_EXCEPTION:
             uart_puts("Illegal instruction exception.\n");
             sepc += 4;
             break;
-        case 0x3:
+        case BREAKPOINT:
             uart_puts("Breakpoint.\n");
             sepc += 4;
             break;
-        case 0x4:
+        case LOAD_ADDRESS_MISALIGNED:
             uart_puts("Load address misaligned.\n");
             sepc += 4;
             break;
-        case 0x5:
+        case LOAD_ACCESS_FAULT:
             uart_puts("Load access fault.\n");
             sepc += 4;
             break;
-        case 0x6:
+        case STORE_ADDRESS_MISALIGNED:
             uart_puts("Store/AMO address misaligned.\n");
             sepc += 4;
             break;
-        case 0x7:
+        case STORE_ACCESS_FAULT:
             uart_puts("Store/AMO access fault.\n");
             sepc += 4;
             break;
-        case 0x8:
+        case ECALL_U_MODE:
             uart_puts("Environment call (ecall) from U-mode.\n");
             sepc += 4;
             break;
-        case 0x9:
+        case ECALL_S_MODE:
             uart_puts("Environment call (ecall) from S-mode.\n");
             sepc += 4;
             break;
-        case 0xB:
+        case ECALL_M_MODE:
             uart_puts("Environment call (ecall) from M-mode.\n");
             sepc += 4;
             break;
-        case 0xC:
+        case INSTRUCTION_PAGE_FAULT:
             uart_puts("Instruction page fault.\n");
             sepc += 4;
             break;
-        case 0xD:
+        case LOAD_PAGE_FAULT:
             uart_puts("Load page fault.\n");
             sepc += 4;
             break;
-        case 0xF:
+        case STORE_PAGE_FAULT:
             uart_puts("Store/AMO page fault.\n");
             sepc += 4;
             break;
