@@ -17,6 +17,6 @@ typedef struct freelist_t
 
 void kernel_phys_mem_init(void);
 void *kernel_phys_alloc(void);
-void kernel_phys_free(void *ptr);
+void kernel_phys_free(const void *ptr);
 
 #endif
